@@ -12,17 +12,21 @@ public class MyStack<V> {
         size++;
     }
 
-    public V remove(int index){
-        Object[] newArray =  new Object[objects.length-1];
-        for(int i=0;i<newArray.length;i++){
-            if(i==index){
-                break;
-            } else {
-                newArray[i] = objects[i];
+    public V remove(int index) {
+        if (checkIndex(index)) {
+            Object[] newArray = new Object[objects.length - 1];
+            for (int i = 0; i < newArray.length; i++) {
+                if (i == index) {
+                    break;
+                } else {
+                    newArray[i] = objects[i];
+                }
             }
+            size--;
+            return (V) newArray;
+        } else {
+            throw new IndexOutOfBoundsException("You entered invalid index");
         }
-        size--;
-        return (V) newArray;
     }
 
     public void clear(){
@@ -51,5 +55,8 @@ public class MyStack<V> {
         if(objects.length-1 == size){
             objects = Arrays.copyOf(objects,objects.length+5);
         }
+    }
+    public boolean checkIndex(int index){
+        return index>=0 && index<size;
     }
 }

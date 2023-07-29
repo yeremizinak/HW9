@@ -29,21 +29,21 @@ public class MyQueue<V> {
         return size;
     }
 
-    public Object peek() {
+    public V peek() {
         if (size == 0) {
             throw new IllegalStateException("Size of queue is 0");
         }
-        return objects[begin];
+        return (V)objects[begin];
     }
 
-    public Object poll() {
+    public V poll() {
         if (size == 0) {
             throw new IllegalStateException("Size of queue is 0");
         }
         Object element = objects[begin];
         begin = (begin + 1) % objects.length;
         size--;
-        return element;
+        return (V)element;
     }
 
     private void queueLengthMore() {

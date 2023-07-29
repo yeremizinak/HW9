@@ -1,10 +1,11 @@
 import javax.swing.plaf.IconUIResource;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class MyHashMap <K, V> {
     int size = 0;
     private static final int DEFAULT_CAPACITY = 16;
-    HashNode<K,V>[] table;
+    HashNode<K,V>[] table = (HashNode<K, V>[]) new Object[DEFAULT_CAPACITY];
 
 
     private int getIndexTable(K key){
@@ -21,6 +22,7 @@ public class MyHashMap <K, V> {
     }
 
     public void put(K key, V value){
+        rebalance();
         HashNode node = new HashNode(key,value);
         int index = getIndexTable(key);
 
@@ -90,5 +92,11 @@ public class MyHashMap <K, V> {
 
         }
         return null;
+    }
+
+    public void rebalance(){
+        if(table.length-1 == size){
+            table = Arrays.copyOf(table,table.length*2);
+        }
     }
 }

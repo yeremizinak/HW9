@@ -21,22 +21,26 @@ public class MyLinkedList<V> {
         size++;
     }
 
-    public void remove(int index){
-        if(index==0){
-            firstNode = firstNode.getNextNode();
-            firstNode.prevNode = null;
-        } else if(index == size-1){
-            lastNode = lastNode.getPrevNode();
-            lastNode.nextNode = null;
-        } else {
-            Node<V> currentNode = firstNode;
-            for(int i=0;i<index;i++){
-                currentNode = currentNode.nextNode;
+    public void remove(int index) {
+        if (checkIndex(index)) {
+            if (index == 0) {
+                firstNode = firstNode.getNextNode();
+                firstNode.prevNode = null;
+            } else if (index == size - 1) {
+                lastNode = lastNode.getPrevNode();
+                lastNode.nextNode = null;
+            } else {
+                Node<V> currentNode = firstNode;
+                for (int i = 0; i < index; i++) {
+                    currentNode = currentNode.nextNode;
+                }
+                currentNode.prevNode.nextNode = currentNode.nextNode;
+                currentNode.nextNode.prevNode = currentNode.prevNode;
             }
-            currentNode.prevNode.nextNode = currentNode.nextNode;
-            currentNode.nextNode.prevNode = currentNode.prevNode;
+            size--;
+        } else {
+            throw new IllegalStateException("You entered invalid index");
         }
-        size--;
     }
 
     public void clear(){
@@ -45,19 +49,27 @@ public class MyLinkedList<V> {
         size =0;
     }
 
-    public V get(int index){
-        Node<V> currentNode = firstNode;
-        if(index==0){
+    public V get(int index) {
+        if (checkIndex(index)) {
+            Node<V> currentNode = firstNode;
+            if (index == 0) {
+                return currentNode.getValue();
+            }
+            for (int i = 0; i < index; i++) {
+                currentNode = currentNode.getNextNode();
+            }
             return currentNode.getValue();
+        } else {
+            throw new IllegalStateException("You entered invalid index");
         }
-        for(int i=0;i<index;i++){
-            currentNode = currentNode.getNextNode();
-        }
-        return currentNode.getValue();
     }
 
     public int size(){
         return size;
+    }
+
+    public boolean checkIndex(int index){
+        return index>=0 && index<size;
     }
 
 }
