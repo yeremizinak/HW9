@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class MyHashMap <K, V> {
     int size = 0;
     private static final int DEFAULT_CAPACITY = 16;
-    HashNode<K,V>[] table = (HashNode<K, V>[]) new Object[DEFAULT_CAPACITY];
+    HashNode<K,V>[] table = (HashNode<K, V>[]) new HashNode[DEFAULT_CAPACITY];
 
 
     private int getIndexTable(K key){
@@ -23,14 +23,14 @@ public class MyHashMap <K, V> {
 
     public void put(K key, V value){
         rebalance();
-        HashNode node = new HashNode(key,value);
+        HashNode<K,V> node = new HashNode<>(key,value);
         int index = getIndexTable(key);
 
         if(table[index] == null){
             table[index] = node;
         } else {
-            HashNode currentNode = table[index];
-            HashNode prevNode = null;
+            HashNode<K,V> currentNode = table[index];
+            HashNode<K,V> prevNode = null;
             while (currentNode != null) {
                 if (currentNode.key.equals(key)) {
                     currentNode.value = value;
@@ -47,8 +47,8 @@ public class MyHashMap <K, V> {
 
     public void remove(K key){
         int index = getIndexTable(key);
-        HashNode currentNode = table[index];
-        HashNode prevNode = null;
+        HashNode<K,V> currentNode = table[index];
+        HashNode<K,V> prevNode = null;
 
         if(table[index] == null){
             throw new IllegalStateException("Nothing to remove");
@@ -64,21 +64,19 @@ public class MyHashMap <K, V> {
                     return;
                 }
             }
-            prevNode = currentNode;
-            currentNode = currentNode.next;
+            //prevNode = currentNode;
+            //currentNode = currentNode.next;
         }
     }
 
     public void clear(){
-        for(int i=0; i<table.length;i++){
-            table[i] = null;
-        }
+        table = new HashNode[0];
         size = 0;
     }
 
     public V get(K key){
         int index = getIndexTable(key);
-        HashNode currentNode = table[index];
+        HashNode<K,V> currentNode = table[index];
 
         if(table[index] == null){
             throw new IllegalStateException("Nothing to remove");
@@ -96,7 +94,18 @@ public class MyHashMap <K, V> {
 
     public void rebalance(){
         if(table.length-1 == size){
-            table = Arrays.copyOf(table,table.length*2);
+            int newDefCapacity = table.length * 2;
+            HashNode<K, V>[] newTable = new HashNode[newDefCapacity];
+            for (HashNode<K, V> node : table) {
+                while (node != null) {
+                    int newIndex = getIndexTable(node.key);
+                    HashNode<K, V> nextNode = node.next;
+                    node.next = newTable[newIndex];
+                    newTable[newIndex] = node;
+                    node = nextNode;
+                }
+            }
+            table = newTable;
         }
     }
 }

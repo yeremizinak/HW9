@@ -3,11 +3,11 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args){
         Random random = new Random();
-        MyArrayList<String> arrayList = new MyArrayList();
-        MyLinkedList<String> linkedList = new MyLinkedList();
-        MyQueue<Integer> queue = new MyQueue();
-        MyStack<String> stack = new MyStack();
-        MyHashMap<Integer,String> hashMap = new MyHashMap();
+        MyArrayList<String> arrayList = new MyArrayList<>();
+        MyLinkedList<String> linkedList = new MyLinkedList<>();
+        MyQueue<Integer> queue = new MyQueue<>();
+        MyStack<String> stack = new MyStack<>();
+        MyHashMap<Integer,String> hashMap = new MyHashMap<>();
 
         int countElements = 1000001;
 
