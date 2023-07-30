@@ -3,27 +3,27 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MyArrayList<V> {
-        private Object[] objects = new Object[10];
-        private int index = 0;
+        private V[] objects;
+        private int size = 0;
+
+        public MyArrayList(){
+            objects = (V[]) new Object[10];
+        }
 
         public void add(V value){
             rebalance();
-            objects[index] = value;
-            index++;
+            objects[size] = value;
+            size++;
         }
 
-    public V remove(int index){
+    public void remove(int index){
         if (checkIndex(index)) {
-            Object[] newArray =  new Object[objects.length-1];
-            for(int i=0;i<newArray.length;i++){
-                if(i==index){
-                    break;
-                } else {
-                    newArray[i] = objects[i];
-                }
+            V toRemove = objects[index];
+            for(int i=index;i<index-1;i++){
+                objects[i] = objects[i+1];
             }
-            index--;
-            return (V) newArray;
+            objects[index -1] = null;
+            size--;
         } else {
             throw new IndexOutOfBoundsException("You entered invalid index");
         }
@@ -33,22 +33,22 @@ public class MyArrayList<V> {
             for(int i=0;i< objects.length;i++){
                 objects[i]=null;
             }
-            index = 0;
+            size = 0;
         }
 
         public int size(){
-            return index;
+            return size;
         }
 
         public V get(int index) {
             if (checkIndex(index)) {
-                return (V) objects[index];
+                return objects[index];
             } else {
                 throw new IndexOutOfBoundsException("You entered invalid index");
             }
         }
         public void rebalance(){
-            if(objects.length-1 == index){
+            if(objects.length-1 == size){
                 objects = Arrays.copyOf(objects,objects.length*2);
             }
         }
