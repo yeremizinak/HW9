@@ -1,24 +1,29 @@
 import java.util.Objects;
 
-public class HashNode<K,V> {
-        final K key;
-        V value;
-        HashNode<K,V> next;
+public class HashNode<K, V> {
+    final K key;
+    V value;
+    HashNode<K, V> next;
 
     HashNode(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
+        this.key = key;
+        this.value = value;
+    }
 
-        public final K getKey()        { return key; }
-        public final V getValue()      { return value; }
-        //public final String toString() { return key + "=" + value; }
+    public final K getKey() {
+        return key;
+    }
 
-        public final V setValue(V newValue) {
-            V oldValue = value;
-            value = newValue;
-            return oldValue;
-        }
+    public final V getValue() {
+        return value;
+    }
+    //public final String toString() { return key + "=" + value; }
+
+    public final V setValue(V newValue) {
+        V oldValue = value;
+        value = newValue;
+        return oldValue;
+    }
 
     /*@Override
     public boolean equals(Object o) {

@@ -7,14 +7,14 @@ public class MyLinkedList<V> {
     private Node<V> lastNode;
     int size = 0;
 
-    public void add(V value){
-        if(firstNode==null){
-            firstNode = new Node<>(null,null, value);
-        } else if(lastNode==null){
-            lastNode = new Node<>(firstNode,null,value);
+    public void add(V value) {
+        if (firstNode == null) {
+            firstNode = new Node<>(null, null, value);
+        } else if (lastNode == null) {
+            lastNode = new Node<>(firstNode, null, value);
             firstNode.setNextNode(lastNode);
-        } else{
-            Node<V> node = new Node<>(lastNode,null,value);
+        } else {
+            Node<V> node = new Node<>(lastNode, null, value);
             lastNode.setNextNode(node);
             lastNode = node;
         }
@@ -43,10 +43,10 @@ public class MyLinkedList<V> {
         }
     }
 
-    public void clear(){
+    public void clear() {
         firstNode = null;
         lastNode = null;
-        size =0;
+        size = 0;
     }
 
     public V get(int index) {
@@ -64,12 +64,12 @@ public class MyLinkedList<V> {
         }
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public boolean checkIndex(int index){
-        return index>=0 && index<size;
+    public boolean checkIndex(int index) {
+        return index >= 0 && index < size;
     }
 
 }

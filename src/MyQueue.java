@@ -33,7 +33,7 @@ public class MyQueue<V> {
         if (size == 0) {
             throw new IllegalStateException("Size of queue is 0");
         }
-        return (V)objects[begin];
+        return (V) objects[begin];
     }
 
     public V poll() {
@@ -43,7 +43,7 @@ public class MyQueue<V> {
         Object element = objects[begin];
         begin = (begin + 1) % objects.length;
         size--;
-        return (V)element;
+        return (V) element;
     }
 
     private void queueLengthMore() {
